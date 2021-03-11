@@ -7,6 +7,8 @@ provider "aws" {
 resource "aws_s3_bucket" "terraform_state" {
   bucket = "ub-tf-remote-state"
   force_destroy = true
+  acl = "private"
+  
   # Enable versioning so we can see the full revision history of our
   # state files
   versioning {
@@ -45,14 +47,14 @@ output "dynamodb_table_name" {
 
 ############## Terraform backend configuration ################
 
-terraform {
-  backend "s3" {
-    # Replace this with your bucket name!
-    bucket         = "ub-tf-remote-state"
-    key            = "remote-backend/terraform.tfstate"
-    region         = "eu-central-1"
-    # Replace this with your DynamoDB table name!
-    dynamodb_table = "terraform-up-and-running-locks"
-    encrypt        = true
-  }
-}
+# terraform {
+#   backend "s3" {
+#     # Replace this with your bucket name!
+#     bucket         = "ub-tf-remote-state"
+#     key            = "remote-backend/terraform.tfstate"
+#     region         = "eu-central-1"
+#     # Replace this with your DynamoDB table name!
+#     dynamodb_table = "terraform-up-and-running-locks"
+#     encrypt        = true
+#   }
+# }
